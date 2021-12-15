@@ -1,0 +1,25 @@
+$default: #000;
+$white: #fff;
+$black: #000;
+$lightGray: #ededed;
+$primary: #024287;
+$secondary: #abb436;
+
+@mixin pcInner {
+  position: relative;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+@mixin moInner {
+  max-width: 100%;
+  margin: 0;
+  padding: 0 20px;
+}
+@mixin clear {
+  &:after {
+    display: block;
+    clear: both;
+    content: '';
+  }
+}

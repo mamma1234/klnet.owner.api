@@ -1,0 +1,32 @@
+components:
+  schemas:
+    createkey:
+      type: object
+      properties:
+        id:
+          type: string
+          description: USER ID
+        no:
+          type: string
+          description: USER NO
+    bookinglist:
+      type: object
+      properties:
+        token:
+          type: string
+          description: AccessToken
+        toDate:
+          type: date
+          description: Start Date
+        endDate:
+          type: date
+          description: End Date
+    get-token:
+      type: obejct
+      properties:
+        apikey:
+          type: string
+          description: API KEY
+        id:
+          type: string
+          description: USER ID

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <link href="/css/master.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<script src="/javascripts/jquery.js"></script>
+
+<script language="javascript">
+    $(document).ready(function() {
+        
+	});
+
+    function CreateApiKey() {
+        console.log(document.forms[0].elements[0].value);
+        console.log(document.forms[0].elements[1].value);
+
+        $.ajax({
+			  type: "POST",
+			  url:"/api/createApikey",
+              contentType:"application/json; charset=utf-8",
+			  data: JSON.stringify({"id":document.forms[0].elements[0].value,"no":document.forms[0].elements[1].value}),
+			  dataType: "json",
+			//   async: false, 
+			  beforeSend: function() {
+		  },
+		  	success: function(results){
+		  		document.getElementById('key').innerHTML = "API KEY : " + results.data;
+                document.getElementById('createButton').style.visibility = "hidden";
+                alert('키 생성이 완료 되었습니다.');
+		  },
+            error: function(){
+                alert("오류가 발생했습니다. 잠시만 기다려주세요.");	  
+            }
+        });  
+    }
+</script>
+<body>
+    <form>
+        <input type="hidden" id="id" name="id" value=<%=user[0].local_id%>>
+        <input type="hidden" id="no" name="no" value=<%=user[0].user_no%>>
+    </form>
+    <div class="wrap">
+        
+        <div class="login">
+            <h2 id="local_id" name="local_id"><%=user[0].local_id%></h2>
+            <h2 id="userno" name="userno">NO : <%=user[0].user_no%></h2>
+            <h2 id="key" name="key">API KEY : <%=user[0].api_service_key%></h2>
+            <% if(user[0].api_service_key == null) { %>
+                <div class="createkey">
+                    <input id="createButton" type="button" value="API키 생성" onClick={CreateApiKey()}>
+                </div>
+            <% } %>
+            
+            <div class="submit">
+                <form action="/auth/logout" method="post">
+                    <input type="submit" value="로그아웃">
+                </form>
+            </div>
+            
+            <div class="setting">
+                <form action="/web/setting", method="post">
+                    <input type="submit" value="SETTING"></input>
+                </form>
+                <div class="apilink">
+                    <a href="/swagger">API이동</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+</body>
+</html>
